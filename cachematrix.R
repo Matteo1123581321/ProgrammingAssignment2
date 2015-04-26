@@ -4,17 +4,17 @@
 ## find it in the cache and return it, and not calculate it again.
 
 makeCacheMatrix <- function(x = matrix()) {
-        inv_x <- NULL
+        invx <- NULL
         set <- function(y) {
                 x <<- y
-                inv_x <<- NULL
+                invx <<- NULL
         }
         get <- function() x
-        setinverse<- function(inverse) inv_x <<-inverse
-        getinverse <- function() inv_x
+        set_Inverse<- function(inverse) invx <<- inverse
+        get_Inverse <- function() invx
         list(set = set, get = get,
-             setinverse = setinverse,
-             getinverse = getinverse)
+             set_Inverse = set_Inverse,
+             get_Inverse = get_Inverse)
 }
 
 ## The function cacheSolve returns the inverse of a matrix A created with
@@ -23,13 +23,13 @@ makeCacheMatrix <- function(x = matrix()) {
 ## not, it computes, caches, and returns it.
 cacheSolve <- function(x, ...) {
         ## Return a matrix that is the inverse of 'x'
-        inv_x <- x$getinverse()
-        if (!is.null(inv_x)) {
+        invx <- x$get_Inverse()
+        if (!is.null(invx)) {
                 message("getting cached inverse matrix")
-                return(inv_x)
+                return(invx)
         } else {
-                inv_x <- solve(x$get())
-                x$setinverse(inv_x)
-                return(inv_x)
+                invx <- solve(x$get())
+                x$set_Inverse(invx)
+                return(invx)
         }
 }
